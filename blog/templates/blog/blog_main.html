@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <div class="text-left">
+            <h6>{{ post.author }} {{post.date}}</h6>
+            <a href="{% url 'post_details' post_id=post.id %}"><h1>{{ post.title }}</h1></a>
+            <h6 class = "lead">{{ post.text |truncatewords:50|linebreaks }}</h6>
+         </div>
+        <div class="text-right">
+            <a class="btn btn-primary btn-lg" href="{% url 'post_details' post_id=post.id %}" role="button">Read</a>
+        </div>
+        <hr class="my-4">
+        <br>
+    {% endfor %}
+
+{% endblock %}

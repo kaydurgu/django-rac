@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Base</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% load static %}
+    <nav class="navbar navbar-inverse">
+        
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li> <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="{% static 'blog/numpy.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                  </a></li>
+                  {% if user.is_authenticated  %}
+                <li><a href="{% url 'home' %}" class="navbar-brand">Numpy</a></li>
+                <li><a href="{% url 'blog-main' %}" class="navbar-brand">Blog</a></li>
+                  {% endif %}
+                <li><a href="{% url 'contact' %}" class="navbar-brand">Contact</a></li>
+                <li><a href="{% url 'password-generator' %}" class="navbar-brand">Password generator</a></li>
+            </ul>
+            
+        </div>
+    </nav>
+    <div class="container text-center">
+        {% block content %}
+            
+        {% endblock %}
+    </div>
+
+</body>
+</html>

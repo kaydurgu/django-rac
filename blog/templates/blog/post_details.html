@@ -1,0 +1,35 @@
+{% extends 'blog/blog_main.html' %}
+
+
+{% block content %}
+        {% load static %}
+            <div class="text-left">
+                <h6 >{{ post.author }} {{post.date}}</h6>
+                    <h1>{{ post.title }}</h1>
+                    <p class = 'lead'>{{ post.text | linebreaks }}</p>
+                    <hr>
+                <br>
+            </div>
+
+            <div class="text-left">
+                <h3 class="text-left">Комментариев ({{ comments|length }})</h3>
+                    <br> 
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group purple-border">
+                            {{form.as_p}}
+                        </div>
+                        <br>
+                        <input type="submit" class="btn btn-primary" value="Оставить коментарий">
+                    </form>
+            </div>
+            <hr>
+            
+            {% for comment in comments %}
+                <p class="text-muted text-left">Anonymous {{ comment.date }}</p>
+                <br>
+                <h4 class="text-left">{{ comment.comment_text|linebreaks }}</h4>
+                <hr>
+            {% endfor %}
+
+{% endblock %}
