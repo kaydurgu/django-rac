@@ -1,19 +1,36 @@
 {% extends 'blog/base.html' %}
 
+
 {% block content %}
-
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success" role="alert">{{message}}</div>
+      {% endfor %}
+    {% endif %}
+      <h3>Announcement</h3>
+    <div class="row d-flex justify-content-around">
     {% for project in Projects %}
-    <div class="card">
-            <div class="container">
-                <img class="card-img" src="{{ project.image.url }}" alt="Card image" width="600" height="700">
-                <div class="card-img-overlay">
-                <h5 class="card-title">{{ project.title }}</h5>
-                <p class="card-text">{{ project.description }}</p>
-                <p class="card-text">{{ project.date }}</p>
-                </div> 
-                <a href="" class="btn btn-primary">Read</a>
-            </div> 
-    </div>
-    {% endfor %}
+      
+        <div class="col-lg-4 col-sm-6 mb-3 shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 2%;">
+          <ul class="list-inline text-left">
+            <li class="list-inline-item"><p class="text-left"><a href="{% url 'profile' username=project.author.username %}">{{project.author.username}}</a></p></li>
+            <li class="list-inline-item text-muted">{{project.date}}</li>
+        </ul>
 
+          <div class="card">
+            <img class="card-img-top" src="{{ project.image.url }}" width="260" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><h3>{{project.title}}</h3></h5>
+              <p class="card-text text-muted">{{ project.description|truncatewords:7 }}</p>
+              <a href="{% url 'details-project' pk=project.id %}" class="btn btn-primary">More</a>
+            </div>
+          </div>
+        </div>
+      {% if forloop.counter|divisibleby:3  %}
+        </div>
+      <div class="row d-flex justify-content-around">
+      {% endif %}
+    {% endfor %}
+    </div>
 {% endblock %}
+backgroudn

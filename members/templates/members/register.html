@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {%load crispy_forms_tags %} 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form action="", method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+       <input type="submit" , value = "Register" , class="btn btn-primary">
+    </form>
+{% endblock %}

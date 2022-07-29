@@ -1,0 +1,17 @@
+{% extends 'blog/base.html'%}
+{%load crispy_forms_tags %} 
+{% block content %}
+    <h1>Writing Post</h1>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+                {{message}}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Post" class="btn btn-primary">
+    </form>
+{% endblock %}

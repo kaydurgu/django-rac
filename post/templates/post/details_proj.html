@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="text-left">
+        <ul class="list-inline">
+            <li class="list-inline-item"><a class="social-icon text-xs-center" target="_blank" href="{% url 'profile' username=post.author.username %}">{{ post.author.username }}</a></li>
+            <li class="list-inline-item">{{post.date}}</li>
+        </ul>
+            <h1>{{ post.title }}</h1>
+            <img src="{{ post.image.url }}" alt="" width="450px" height="450px">
+            <p class = 'lead'>{{ post.description | linebreaks }}</p>
+            <div class="text-left">
+                <button class="btn btn-success">{{ post.likes }} <span class="glyphicon glyphicon-thumbs-up"></span> Like</button>       
+                <button class="btn btn-danger"> {{ post.dislikes }} <span class="glyphicon glyphicon-thumbs-down"></span>  Dislike</button>
+            </div>
+            <hr>
+        <br>
+    </div>
+
+    {% endblock %}

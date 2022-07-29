@@ -4,9 +4,24 @@
 {% block content %}
         {% load static %}
             <div class="text-left">
-                <h6 >{{ post.author }} {{post.date}}</h6>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a class="social-icon text-xs-center" target="_blank" href="{% url 'profile' username=post.author.username %}">{{ post.author.username }}</a></li>
+                    <li class="list-inline-item">{{post.date}}</li>
+                    <li class="list-inline-item">
+                        {% for category in post.cat.all %}
+                             <a href="{% url 'blog-by-category' pk=category.id %}">{{category}}</a>|
+                        {% endfor %}
+                    </li>
+                </ul>
                     <h1>{{ post.title }}</h1>
                     <p class = 'lead'>{{ post.text | linebreaks }}</p>
+                    <div class="text-left">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-success" name = 'like'>{{ post.likes.all|length }} <span class="glyphicon glyphicon-thumbs-up"></span> Like</button>       
+                            <button class="btn btn-danger" name = 'dislike'> {{ post.dislikes.all|length }} <span class="glyphicon glyphicon-thumbs-down"></span>  Dislike</button>
+                        </form>
+                    </div>
                     <hr>
                 <br>
             </div>
@@ -14,21 +29,21 @@
             <div class="text-left">
                 <h3 class="text-left">Комментариев ({{ comments|length }})</h3>
                     <br> 
-                    <form action="" method="POST">
+                    <form method="POST">
                         {% csrf_token %}
                         <div class="form-group purple-border">
                             {{form.as_p}}
                         </div>
                         <br>
-                        <input type="submit" class="btn btn-primary" value="Оставить коментарий">
+                        <input type="submit" class="btn btn-primary" value="Оставить коментарий" name = 'comment'>
                     </form>
             </div>
             <hr>
             
             {% for comment in comments %}
-                <p class="text-muted text-left">Anonymous {{ comment.date }}</p>
+                <p class="text-muted text-left"><a href="{% url 'profile' username=comment.user.username %}">{{ comment.user.username }}</a> {{ comment.date }}</p>
                 <br>
-                <h4 class="text-left">{{ comment.comment_text|linebreaks }}</h4>
+                <h5 class="text-left">{{ comment.comment_text|linebreaks }}</h5>
                 <hr>
             {% endfor %}
 

@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-
+from django.contrib import messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'blog',
     'contact',
     'password_generator',
-    'post'
+    'post',
+    'members',
+    'crispy_forms',
+    'contest',
+    'crud',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +122,8 @@ USE_I18N = True
 USE_TZ = True
 
 
+LANGUAGE_CODE = 'en'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -133,3 +139,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# login required generator
+
+LOGIN_URL='http://127.0.0.1:8000/login/'
+LOGIN_REDIRECT_URL=LOGIN_URL
+
+
+
+# Django.contrib messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

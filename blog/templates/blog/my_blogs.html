@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    {% for post in posts %}
+
+        <div class="text-left" style="margin-top: 30px;">
+            <ul class="list-inline">
+                <li class="list-inline-item"><a class="social-icon text-xs-center" target="_blank" href="{% url 'profile' username=post.author.username %}">{{ post.author.username }}</a></li>
+                <li class="list-inline-item">{{post.date}}</li>
+                <li class="list-inline-item"><a class="social-icon text-xs-center" target="_blank" href="#">
+                
+                    {% for category in post.cat.all %}
+                        <a href="{% url 'blog-by-category' pk=category.id %}">{{category}}</a>|
+                    {% endfor %}
+                </a></li>
+            </ul>
+
+        <a href="{% url 'post_details' pk=post.id %}"><h1>{{ post.title }}</h1></a>      
+        <h6 class = "lead">{{ post.text |truncatewords:50|linebreaks }}</h6>
+         </div>
+
+         <div class="text-left">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-success" name = 'like' value= {{post.id}}>{{ post.likes.all |length }}  <span class="glyphicon glyphicon-thumbs-up"></span> Like</button>       
+                    <button class="btn btn-danger" name = 'dislike' value= {{post.id}}>{{ post.dislikes.all |length }} <span class="glyphicon glyphicon-thumbs-down"></span>  Dislike</button>
+                </form>    
+         </div>
+        <div class="text-right">
+            <a class="btn btn-primary btn-lg" href="{% url 'post_details' pk=post.id %}" role="button">Read</a>
+        </div>
+        <hr class="my-4">
+        <br>
+    {% endfor %}
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+        <h1>{{contest}}</h1>
+        <div class="text-left">
+            <form action="{% url 'contest-result' contest.pk %}" method="POST">
+                {% csrf_token %}
+                {% for question in questions %}
+                    <hr>
+                    <h4>{{question.text}}</h4>   
+                    <hr>
+                        {% for choice in question.choices.all %}
+                            <label><input type="radio" name="{{question.pk}}" value={{choice.statment}}> {{choice.text}}</label> <br>
+                        {% endfor %}
+                {% endfor %}
+            <input type="submit" class="btn btn-success" value="Send">
+            </form> 
+        </div>
+{% endblock %}

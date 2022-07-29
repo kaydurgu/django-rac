@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container rounded bg-white shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" height="150" src="{{ profile_of_user.profile_pic.url }}">{{profile_of_user.profile_pic.image.url }}</div>
+                <p><a href="{% url 'profile' username=profile_of_user.user.username %}">{{profile_of_user.user.username}}</a></p>
+                <p>Followers:  <b>{{ profile_of_user.followers.all|length }}</b></p><hr>
+                <p>Followings:  <b>{{ profile_of_user.followings.all|length }}</b></p><hr>
+                {% if user.username != profile_of_user.user.username %}
+                    {% if is_following is True %}
+                    <a href="{% url 'follow' profile_of_user %}" class="btn btn-light">Following</a>
+                    {% else %}
+                    <a href="{% url 'follow' profile_of_user %}" class="btn btn-success">Follow</a>
+                    {% endif %}
+                {% endif %}
+                <p>{{profile_of_user.bio}}</p><hr>
+                <a href="{% url 'my-blogs' username=profile_of_user.user.username %}"class="btn btn-primary">Posts</a>
+            </div>      
+            <div class="col-md-5">
+                <div class="text-left">
+                        <h4>Profile</h4><hr>
+                        <p class="display-6">Username:  <b>{{ profile_of_user.user.username }}</b></p><hr>
+                        <p>Name:  <b>{{ profile_of_user.user.first_name }}</b></p><hr>
+                        <p>Surname:  <b>{{ profile_of_user.user.last_name }}</b></p><hr>
+                        <p>Email:  <b>{{ profile_of_user.user.email }}</b></p><hr>
+                        <p>Facebook:   <b>{{ profile_of_user.facebook }}</b></p><hr>
+                        <p>Twitter:  <b>{{ profile_of_user.twitter }}</b></p><hr>
+                        <p>Instagram: <b>{{ profile_of_user.instagram }}</b> </p><hr>
+                        <p>Last Login:  <b>{{ profile_of_user.user.last_login }}</b> </p><hr>
+                    {% if user == profile_of_user.user %}
+                        <div class="mt-5 text-center"><a href="{% url 'settings' username=user.username %}"><button class="btn btn-primary profile-button" type="button">Settings</button></a></div><hr>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

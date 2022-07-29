@@ -1,6 +1,15 @@
 {% include 'blog/base.html' %}
 
 {% load static %}
+<div class="container text-center">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+            {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
 <link rel="stylesheet" href="{% static 'contact/styles.css' %}">
 
 <section id="contact">

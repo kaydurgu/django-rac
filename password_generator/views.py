@@ -1,10 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 import string
 import random
-
-def home(request):
-    return render(request, 'password_generator/home.html')
 
 def genereted_password(request):
     

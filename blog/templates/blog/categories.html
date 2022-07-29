@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="text-left">
+        {% for object in object_list %}
+        <li><a href="{% url 'blog-by-category' object.pk %}">{{object.category }}</a></li>
+        {% endfor %}
+    </div>
+    <br><hr>
+    {% load crispy_forms_tags %}
+    <form method="post">{% csrf_token %}
+        {{ form|crispy}}
+        <input type="submit" value="Add" class="btn btn-success">
+    </form>
+{% endblock %}

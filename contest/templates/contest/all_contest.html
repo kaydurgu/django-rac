@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+    
+    <div class="text-left">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Contest</th>
+                <th scope="col">Questions</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Participants</th>
+              </tr>
+            </thead>
+        {% for contest in object_list %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{% url 'contest-detail' pk=contest.id %}">{{contest.title}}</a></td>
+                        <td>{{contest.questions.all|length}}</td>
+                        <td>{{contest.date}}</td>
+                        <td><a href="{% url 'contest-result' pk=contest.id %}">Rating</a></td>
+                        <td>{{contest.result.all|length}}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>   
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td><a href="{% url 'details' pk=book.pk %}">{{book.pk}}</a></td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.isbn_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    <div class="container text-center">
+    {% if is_paginated %}
+        {% include "crud/_pagination.html" %}
+    {% endif %}
+    </div>
+{% endblock %}
